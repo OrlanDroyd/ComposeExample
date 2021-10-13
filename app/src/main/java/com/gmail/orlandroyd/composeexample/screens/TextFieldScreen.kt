@@ -33,12 +33,26 @@
  */
 package com.gmail.orlandroyd.composeexample.screens
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
+import android.util.Log
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Email
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.gmail.orlandroyd.composeexample.R
 import com.gmail.orlandroyd.composeexample.router.BackButtonHandler
 import com.gmail.orlandroyd.composeexample.router.JetFundamentalsRouter
 import com.gmail.orlandroyd.composeexample.router.Screen
@@ -50,7 +64,11 @@ fun TextFieldScreen() {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        MyTextField()
+        MyTextField1()
+        Spacer(modifier = Modifier.height(8.dp))
+        MyTextField2()
+        Spacer(modifier = Modifier.height(8.dp))
+        MyTextField3()
     }
 
     BackButtonHandler {
@@ -58,7 +76,88 @@ fun TextFieldScreen() {
     }
 }
 
+@Preview(showBackground = true)
 @Composable
-fun MyTextField() {
-    //TODO add your code here
+fun MyTextField1() {
+
+    val textValue = remember { mutableStateOf("") }
+
+    TextField(
+        value = textValue.value,
+        onValueChange = { textValue.value = it },
+        label = {}
+    )
+
+}
+
+@Preview(showBackground = true)
+@Composable
+fun MyTextField2() {
+
+    val textValue = remember { mutableStateOf("") }
+    val primaryColor = colorResource(id = R.color.colorPrimary)
+
+    OutlinedTextField(
+        value = textValue.value,
+        onValueChange = { textValue.value = it },
+        label = {
+            Text(text = stringResource(R.string.email))
+        },
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            focusedBorderColor = primaryColor,
+            focusedLabelColor = primaryColor,
+            cursorColor = primaryColor
+        ),
+        keyboardOptions = KeyboardOptions.Default.copy(
+            keyboardType = KeyboardType.Email
+        )
+    )
+
+}
+
+@Preview(showBackground = true)
+@Composable
+fun MyTextField3() {
+
+    val textValue = remember { mutableStateOf("") }
+    val primaryColor = colorResource(id = R.color.colorPrimary)
+
+    OutlinedTextField(
+        value = textValue.value,
+        onValueChange = { textValue.value = it },
+        label = {
+            Text(text = stringResource(R.string.email))
+        },
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            focusedBorderColor = primaryColor,
+            focusedLabelColor = primaryColor,
+            cursorColor = primaryColor
+        ),
+        keyboardOptions = KeyboardOptions.Default.copy(
+            keyboardType = KeyboardType.Email,
+            imeAction = ImeAction.Go
+        ),
+        singleLine = true,
+        maxLines = 1,
+        keyboardActions = KeyboardActions(
+            onGo = { Log.i("GO", "CLICK") }
+        ),
+        leadingIcon = {
+            IconButton(onClick = {/*TODO*/ }, enabled = false) {
+                Icon(
+                    imageVector = Icons.Filled.Email,
+                    contentDescription = "Email"
+                )
+            }
+        },
+        trailingIcon = {
+            IconButton(onClick = {/*TODO*/ }) {
+                Icon(
+                    imageVector = Icons.Filled.Check,
+                    contentDescription = "Done"
+                )
+            }
+        }
+    )
+
 }
