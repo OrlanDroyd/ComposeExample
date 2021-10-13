@@ -31,18 +31,31 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.gmail.orlandroyd.composeexample
+package com.gmail.orlandroyd.composeexample.app
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import com.gmail.orlandroyd.composeexample.app.JetFundamentalsApp
+import androidx.compose.animation.Crossfade
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.runtime.Composable
+import com.gmail.orlandroyd.composeexample.router.JetFundamentalsRouter
+import com.gmail.orlandroyd.composeexample.router.Screen
+import com.gmail.orlandroyd.composeexample.screens.*
+import com.gmail.orlandroyd.composeexample.ui.theme.ComposeExampleTheme
 
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            JetFundamentalsApp()
+@Composable
+fun JetFundamentalsApp() {
+    ComposeExampleTheme {
+        Surface(color = MaterialTheme.colors.background) {
+            Crossfade(targetState = JetFundamentalsRouter.currentScreen) { screenState ->
+                when (screenState.value) {
+                    is Screen.Navigation -> NavigationScreen()
+                    is Screen.Text -> TextScreen()
+                    is Screen.TextField -> TextFieldScreen()
+                    is Screen.Buttons -> ExploreButtonsScreen()
+                    is Screen.ProgressIndicator -> ProgressIndicatorScreen()
+                    is Screen.AlertDialog -> AlertDialogScreen()
+                }
+            }
         }
     }
 }

@@ -31,18 +31,53 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.gmail.orlandroyd.composeexample
+package com.gmail.orlandroyd.composeexample.router
 
-import android.os.Bundle
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import com.gmail.orlandroyd.composeexample.app.JetFundamentalsApp
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.OnBackPressedDispatcherOwner
+import androidx.compose.runtime.*
+import androidx.compose.ui.platform.LocalLifecycleOwner
 
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            JetFundamentalsApp()
+private val LocalBackPressedDispatcher = staticCompositionLocalOf<OnBackPressedDispatcherOwner?> { null }
+
+private class ComposableBackHandler(enabled: Boolean) : OnBackPressedCallback(enabled) {
+    lateinit var onBackPressed: () -> Unit
+
+    override fun handleOnBackPressed() {
+        onBackPressed()
+    }
+}
+
+@Composable
+internal fun Handler(
+    enabled: Boolean = true,
+    onBackPressed: () -> Unit
+) {
+    val dispatcher = (LocalBackPressedDispatcher.current ?: return).onBackPressedDispatcher
+
+    val handler = remember { ComposableBackHandler(enabled) }
+
+    DisposableEffect(dispatcher) {
+        dispatcher.addCallback(handler)
+
+
+        onDispose { handler.remove() }
+    }
+
+    LaunchedEffect(enabled) {
+        handler.isEnabled = enabled
+        handler.onBackPressed = onBackPressed
+    }
+}
+
+@Composable
+internal fun BackButtonHandler(onBackPressed: () -> Unit) {
+    CompositionLocalProvider(
+        LocalBackPressedDispatcher provides LocalLifecycleOwner.current as ComponentActivity
+    ) {
+        Handler {
+            onBackPressed()
         }
     }
 }

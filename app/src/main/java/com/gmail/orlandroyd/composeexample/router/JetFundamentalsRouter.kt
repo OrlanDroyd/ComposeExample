@@ -31,18 +31,29 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.gmail.orlandroyd.composeexample
+package com.gmail.orlandroyd.composeexample.router
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import com.gmail.orlandroyd.composeexample.app.JetFundamentalsApp
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            JetFundamentalsApp()
-        }
+/**
+ * Class defining the screens we have in the app.
+ *
+ * These objects should match files we have in the screens package
+ */
+sealed class Screen {
+    object Navigation : Screen()
+    object Text : Screen()
+    object TextField : Screen()
+    object Buttons : Screen()
+    object ProgressIndicator : Screen()
+    object AlertDialog : Screen()
+}
+
+object JetFundamentalsRouter {
+    var currentScreen: MutableState<Screen> = mutableStateOf(Screen.Navigation)
+
+    fun navigateTo(destination: Screen) {
+        currentScreen.value = destination
     }
 }
