@@ -33,12 +33,15 @@
  */
 package com.gmail.orlandroyd.composeexample.screens
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.unit.dp
+import com.gmail.orlandroyd.composeexample.R
 import com.gmail.orlandroyd.composeexample.router.BackButtonHandler
 import com.gmail.orlandroyd.composeexample.router.JetFundamentalsRouter
 import com.gmail.orlandroyd.composeexample.router.Screen
@@ -51,7 +54,19 @@ fun ProgressIndicatorScreen() {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        //TODO add your code here
+        CircularProgressIndicator(
+            color = colorResource(R.color.colorPrimary),
+            strokeWidth = 5.dp
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        LinearProgressIndicator(progress = 0.5f)
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        LinearProgressIndicator()
+
     }
 
     BackButtonHandler {
