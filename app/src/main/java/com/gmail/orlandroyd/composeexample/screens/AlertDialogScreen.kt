@@ -33,7 +33,15 @@
  */
 package com.gmail.orlandroyd.composeexample.screens
 
+import androidx.compose.material.AlertDialog
+import androidx.compose.material.Text
+import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
+import com.gmail.orlandroyd.composeexample.R
 import com.gmail.orlandroyd.composeexample.router.BackButtonHandler
 import com.gmail.orlandroyd.composeexample.router.JetFundamentalsRouter
 import com.gmail.orlandroyd.composeexample.router.Screen
@@ -51,5 +59,35 @@ fun AlertDialogScreen() {
 
 @Composable
 fun MyAlertDialog() {
-    //TODO add your code here
+
+    val shouldShowDialog = remember { mutableStateOf(true) }
+
+    if (shouldShowDialog.value) {
+        AlertDialog(
+            onDismissRequest = {
+                shouldShowDialog.value = false
+                JetFundamentalsRouter.navigateTo(Screen.Navigation)
+            },
+            title = {
+                Text(text = stringResource(R.string.alert_dialog_title))
+            },
+            text = {
+                Text(text = stringResource(R.string.alert_dialog_text))
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        shouldShowDialog.value = false
+                        JetFundamentalsRouter.navigateTo(Screen.Navigation)
+                    }
+                ) {
+                    Text(
+                        text = stringResource(R.string.confirm),
+                        color = colorResource(R.color.colorPrimary)
+                    )
+                }
+            }
+        )
+    }
+
 }
