@@ -34,6 +34,7 @@
 package com.gmail.orlandroyd.composeexample.app
 
 import androidx.compose.animation.Crossfade
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
@@ -42,6 +43,7 @@ import com.gmail.orlandroyd.composeexample.router.Screen
 import com.gmail.orlandroyd.composeexample.screens.*
 import com.gmail.orlandroyd.composeexample.ui.theme.ComposeExampleTheme
 
+@ExperimentalMaterialApi
 @Composable
 fun JetFundamentalsApp() {
     ComposeExampleTheme {
