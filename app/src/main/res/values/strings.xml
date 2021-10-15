@@ -14,5 +14,11 @@
     <string name="confirm">"Confirm"</string>
     <string name="alert_dialog_text">"Jetpack Compose Alert Dialog!"</string>
     <string name="alert_dialog_title">"Alert Dialog"</string>
+    <string name="row">"Row"</string>
+    <string name="column">"Column"</string>
+    <string name="box">"Box"</string>
+    <string name="surface">"Surface"</string>
+    <string name="scaffold">"Scaffold"</string>
     <string name="favourite">"Favourite"</string>
+    <string name="menu">"Menu"</string>
 </resources>

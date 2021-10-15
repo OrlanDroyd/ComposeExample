@@ -33,8 +33,11 @@
  */
 package com.gmail.orlandroyd.composeexample.screens
 
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Surface
@@ -58,7 +61,8 @@ fun NavigationScreen() {
     ) {
         Column(
             verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.verticalScroll(rememberScrollState())
         ) {
 
             NavigationButton(stringResource(id = R.string.text), Screen.Text)
@@ -69,6 +73,11 @@ fun NavigationScreen() {
                 Screen.ProgressIndicator
             )
             NavigationButton(stringResource(id = R.string.alert_dialog), Screen.AlertDialog)
+            NavigationButton(stringResource(id = R.string.row), Screen.Row)
+            NavigationButton(stringResource(id = R.string.column), Screen.Column)
+            NavigationButton(stringResource(id = R.string.box), Screen.Box)
+            NavigationButton(stringResource(id = R.string.surface), Screen.Surface)
+            NavigationButton(stringResource(id = R.string.scaffold), Screen.Scaffold)
         }
     }
 }
