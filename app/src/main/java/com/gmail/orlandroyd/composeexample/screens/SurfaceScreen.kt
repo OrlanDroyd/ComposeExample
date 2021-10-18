@@ -35,15 +35,25 @@
 
 package com.gmail.orlandroyd.composeexample.screens
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.unit.dp
+import com.gmail.orlandroyd.composeexample.R
 import com.gmail.orlandroyd.composeexample.router.BackButtonHandler
 import com.gmail.orlandroyd.composeexample.router.JetFundamentalsRouter
 import com.gmail.orlandroyd.composeexample.router.Screen
 
+// Surface only hold one child at a time, but it provides
+// many styling options for the content of its children, such as the elevation, border and
+// much more.
 @Composable
 fun SurfaceScreen(modifier: Modifier = Modifier) {
 
@@ -58,5 +68,16 @@ fun SurfaceScreen(modifier: Modifier = Modifier) {
 
 @Composable
 fun MySurface(modifier: Modifier) {
-    //TODO write your code here
+    Surface(
+        modifier = modifier.size(100.dp),
+        color = Color.LightGray,
+        contentColor = colorResource(
+            id =
+            R.color.colorPrimary
+        ),
+        elevation = 1.dp,
+        border = BorderStroke(1.dp, Color.Black)
+    ) {
+        MyColumn()
+    }
 }
