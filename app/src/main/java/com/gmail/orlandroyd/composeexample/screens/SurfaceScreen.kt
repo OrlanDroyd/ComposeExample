@@ -39,12 +39,15 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.Card
 import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gmail.orlandroyd.composeexample.R
 import com.gmail.orlandroyd.composeexample.router.BackButtonHandler
@@ -54,6 +57,15 @@ import com.gmail.orlandroyd.composeexample.router.Screen
 // Surface only hold one child at a time, but it provides
 // many styling options for the content of its children, such as the elevation, border and
 // much more.
+// The Surface() doesn’t handle positioning—its child does.
+
+// NOTE:
+//There’s a popular custom Surface implementation called Card. A Card
+//has exactly the same five purposes and can only hold one child. The only
+//difference between the Card and a Surface are its default parameters. A Card
+//has a predefined elevation and uses a material theme shape with rounded
+//corners.
+
 @Composable
 fun SurfaceScreen(modifier: Modifier = Modifier) {
 
@@ -79,5 +91,26 @@ fun MySurface(modifier: Modifier) {
         border = BorderStroke(1.dp, Color.Black)
     ) {
         MyColumn()
+    }
+}
+
+@Composable
+@Preview(widthDp = 300, heightDp = 300, showBackground = true)
+fun MyCard() {
+    Box(
+        contentAlignment = Alignment.Center
+    ) {
+        Card(
+            modifier = Modifier
+                .size(100.dp),
+            backgroundColor = colorResource(
+                id =
+                R.color.colorPrimary
+            )
+        ) {
+            Box() {
+                Text("HELLO WORLD", Modifier.align(Alignment.Center))
+            }
+        }
     }
 }
