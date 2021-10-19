@@ -35,11 +35,20 @@
 
 package com.gmail.orlandroyd.composeexample.screens
 
-import androidx.compose.material.ScaffoldState
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
+import com.gmail.orlandroyd.composeexample.R
 import com.gmail.orlandroyd.composeexample.router.BackButtonHandler
 import com.gmail.orlandroyd.composeexample.router.JetFundamentalsRouter
 import com.gmail.orlandroyd.composeexample.router.Screen
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 @Composable
 fun ScaffoldScreen() {
@@ -52,12 +61,57 @@ fun ScaffoldScreen() {
 
 @Composable
 fun MyScaffold() {
-    //TODO write your code here
+    val scaffoldState: ScaffoldState = rememberScaffoldState()
+    val scope: CoroutineScope = rememberCoroutineScope()
+
+    Scaffold(
+        scaffoldState = scaffoldState,
+        contentColor = colorResource(id = R.color.colorPrimary),
+        content = { TextScreen() },
+        topBar = {
+            MyTopAppBar(
+                scaffoldState = scaffoldState,
+                scope = scope
+            )
+        },
+        bottomBar = { MyBottomAppBar() },
+        drawerContent = { MyColumn() }
+    )
 }
 
 @Composable
-fun MyTopAppBar(scaffoldState: ScaffoldState) {
-    //TODO write your code here
+fun MyTopAppBar(
+    scaffoldState: ScaffoldState, scope:
+    CoroutineScope
+) {
+    val drawerState = scaffoldState.drawerState
+
+    TopAppBar(
+        navigationIcon = {
+            IconButton(
+                content = {
+                    Icon(
+                        imageVector = Icons.Default.Menu,
+                        tint = Color.White,
+                        contentDescription = stringResource(R.string.menu)
+                    )
+                },
+                onClick = {
+                    scope.launch {
+                        if (drawerState.isClosed) drawerState.open() else drawerState.close()
+                    }
+                }
+            )
+        },
+        title = {
+            Text(
+                stringResource(R.string.app_name),
+                color = Color.White
+            )
+        },
+        backgroundColor = colorResource(R.color.colorPrimary)
+    )
+
 }
 
 @Composable
