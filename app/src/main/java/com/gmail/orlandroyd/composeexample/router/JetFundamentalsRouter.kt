@@ -55,6 +55,7 @@ sealed class Screen {
     object Scaffold : Screen()
     object Scrolling : Screen()
     object List : Screen()
+    object Grid : Screen()
 }
 
 object JetFundamentalsRouter {
