@@ -61,6 +61,7 @@ fun JetFundamentalsApp() {
                     is Screen.Box -> BoxScreen()
                     is Screen.Surface -> SurfaceScreen()
                     is Screen.Scaffold -> ScaffoldScreen()
+                    is Screen.Scrolling -> ScrollingScreen()
                 }
             }
         }

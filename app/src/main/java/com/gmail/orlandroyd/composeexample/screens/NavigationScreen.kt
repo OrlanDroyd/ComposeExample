@@ -60,7 +60,7 @@ fun NavigationScreen() {
         modifier = Modifier.fillMaxSize()
     ) {
         Column(
-            verticalArrangement = Arrangement.Center,
+            verticalArrangement = Arrangement.SpaceAround,
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.verticalScroll(rememberScrollState())
         ) {
@@ -78,6 +78,7 @@ fun NavigationScreen() {
             NavigationButton(stringResource(id = R.string.box), Screen.Box)
             NavigationButton(stringResource(id = R.string.surface), Screen.Surface)
             NavigationButton(stringResource(id = R.string.scaffold), Screen.Scaffold)
+            NavigationButton(stringResource(id = R.string.scrolling), Screen.Scrolling)
         }
     }
 }
