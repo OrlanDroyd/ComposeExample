@@ -33,7 +33,6 @@
  */
 package com.gmail.orlandroyd.composeexample.screens
 
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -79,6 +78,7 @@ fun NavigationScreen() {
             NavigationButton(stringResource(id = R.string.surface), Screen.Surface)
             NavigationButton(stringResource(id = R.string.scaffold), Screen.Scaffold)
             NavigationButton(stringResource(id = R.string.scrolling), Screen.Scrolling)
+            NavigationButton(stringResource(id = R.string.list), Screen.List)
         }
     }
 }
