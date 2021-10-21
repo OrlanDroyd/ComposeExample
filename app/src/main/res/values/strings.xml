@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Notas Now PRO</string>
+    <string name="drawer_header_icon">Menú lateral</string>
+    <string name="screen_navigation_button">Menú de navegación</string>
+    <string name="turn_on_dark_theme">Modo oscuro</string>
+    <string name="notes">Notas</string>
+    <string name="trash">Papelera</string>
 </resources>

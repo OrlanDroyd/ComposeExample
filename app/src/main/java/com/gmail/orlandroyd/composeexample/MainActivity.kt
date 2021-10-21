@@ -37,8 +37,16 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.material.Scaffold
+import androidx.compose.material.ScaffoldState
+import androidx.compose.material.rememberScaffoldState
+import androidx.compose.runtime.rememberCoroutineScope
+import com.gmail.orlandroyd.composeexample.routing.Screen
+import com.gmail.orlandroyd.composeexample.ui.components.AppDrawer
+import com.gmail.orlandroyd.composeexample.ui.components.Note
 import com.gmail.orlandroyd.composeexample.viewmodel.MainViewModel
 import com.gmail.orlandroyd.composeexample.viewmodel.MainViewModelFactory
+import kotlinx.coroutines.launch
 
 /**
  * Main activity for the app.
@@ -56,7 +64,24 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-
+            val coroutineScope = rememberCoroutineScope()
+            val scaffoldState: ScaffoldState = rememberScaffoldState()
+            Scaffold(
+                scaffoldState = scaffoldState,
+                drawerContent = {
+                    AppDrawer(
+                        currentScreen = Screen.Notes,
+                        closeDrawerAction = {
+                            coroutineScope.launch {
+                                scaffoldState.drawerState.close()
+                            }
+                        }
+                    )
+                },
+                content = {
+                    Note()
+                }
+            )
         }
     }
 }
