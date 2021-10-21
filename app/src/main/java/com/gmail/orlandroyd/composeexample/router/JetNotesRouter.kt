@@ -31,32 +31,30 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.gmail.orlandroyd.composeexample
+package com.gmail.orlandroyd.composeexample.router
 
-import android.os.Bundle
-import androidx.activity.compose.setContent
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
-import com.gmail.orlandroyd.composeexample.viewmodel.MainViewModel
-import com.gmail.orlandroyd.composeexample.viewmodel.MainViewModelFactory
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 
 /**
- * Main activity for the app.
+ * Class defining all possible screens in the app.
  */
-class MainActivity : AppCompatActivity() {
+sealed class Screen {
+    object Notes : Screen()
+    object SaveNote : Screen()
+    object Trash : Screen()
+}
 
-    private val viewModel: MainViewModel by viewModels(factoryProducer = {
-        MainViewModelFactory(
-            this,
-            (application as JetNotesApplication).dependencyInjector.repository
-        )
-    })
+/**
+ * Allows you to change the screen in the [MainActivity]
+ *
+ * Also keeps track of the current screen.
+ */
+object JetNotesRouter {
+    var currentScreen: Screen by mutableStateOf(Screen.Notes)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        setContent {
-
-        }
+    fun navigateTo(destination: Screen) {
+        currentScreen = destination
     }
 }
