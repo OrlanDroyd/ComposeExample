@@ -52,6 +52,7 @@ import kotlinx.coroutines.launch
 /**
  * {@inheritDoc}
  */
+@DelicateCoroutinesApi
 class RepositoryImpl(
     private val noteDao: NoteDao,
     private val colorDao: ColorDao,

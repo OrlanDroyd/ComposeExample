@@ -35,8 +35,13 @@
 
 package com.gmail.orlandroyd.composeexample.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.gmail.orlandroyd.composeexample.data.repository.Repository
+import com.gmail.orlandroyd.composeexample.domain.model.NoteModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 /**
  * View model used for storing the global app state.
@@ -44,5 +49,23 @@ import com.gmail.orlandroyd.composeexample.data.repository.Repository
  * This view model is used for all screens.
  */
 class MainViewModel(private val repository: Repository) : ViewModel() {
+
+    val notesNotInTrash: LiveData<List<NoteModel>> by lazy {
+        repository.getAllNotesNotInTrash()
+    }
+
+    fun onCreateNewNoteClick() {
+        // TODO - Open SaveNoteScreen
+    }
+
+    fun onNoteClick(note: NoteModel) {
+        // TODO - Open SaveNoteScreen in Edit mode
+    }
+
+    fun onNoteCheckedChange(note: NoteModel) {
+        viewModelScope.launch(Dispatchers.Default) {
+            repository.insertNote(note)
+        }
+    }
 
 }

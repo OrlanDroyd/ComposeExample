@@ -33,20 +33,10 @@
  *
  */
 
-package com.gmail.orlandroyd.composeexample.domain.model
+package com.gmail.orlandroyd.composeexample.ui.screens
 
-import com.gmail.orlandroyd.composeexample.data.database.model.ColorDbModel
+import com.gmail.orlandroyd.composeexample.domain.model.NoteModel
 
-/**
- * Model class for one Color
- */
-data class ColorModel(
-    val id: Long,
-    val name: String,
-    val hex: String
-) {
-
-    companion object {
-        val DEFAULT = with(ColorDbModel.DEFAULT_COLOR) { ColorModel(id, name, hex) }
-    }
-}
+data class NoteState(
+    val notes: List<NoteModel> = emptyList()
+)
